@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <form method="post" action="" enctype="multipart/form-data" id="myform">
+        <div>
+            <input type="file" id="upload" name="fileInput" />
+            <input type="password" id="auth" name="authInput" value="{{.Auth}}">
+            <input type="submit" class="button" value="Upload" id="uploadButton">
+        </div>
+    </form>
+
+
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $("#myform").submit(function(e) {
+                e.preventDefault();
+                var files = $('#upload').val()
+                console.log($(files))
+                if (files.length > 0) {
+                    var form = new FormData();
+                    form.append("upload", $('#upload')[0].files[0]);
+                    form.append("auth", $('#auth').val());
+
+                    var settings = {
+                        "url": "/upload",
+                        "method": "POST",
+                        "timeout": 0,
+                        "processData": false,
+                        "mimeType": "multipart/form-data",
+                        "contentType": false,
+                        "data": form
+                    };
+
+                    $.ajax(settings).done(function(response) {
+                        console.log(response);
+                    });
+                } else {
+                    alert("Please select a file.");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
