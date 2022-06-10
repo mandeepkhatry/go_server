@@ -39,7 +39,11 @@ func WriteDataToFile(fileHeader *multipart.FileHeader, file multipart.File) erro
 		logger.Debug(err.Error())
 		return err
 	}
+
 	path := filepath.Join(wd, constant.UploadedFile, fname)
+	if _, err := os.Stat(filepath.Join(wd, constant.UploadedFile)); os.IsNotExist(err) {
+		os.Mkdir(filepath.Join(wd, constant.UploadedFile), os.ModePerm)
+	}
 	newFile, err := os.Create(path)
 	if err != nil {
 		logger.Debug(err.Error())
