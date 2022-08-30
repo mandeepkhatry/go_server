@@ -1,7 +1,7 @@
 go_server
 ------------------
 
-A simple server made in Go as a part of Brankas Skill Test.
+A simple server made in Go.
 
 **How to Run?**
 ```
